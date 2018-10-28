@@ -13,14 +13,8 @@ public class Ship {
 	private String name;
 
 	public void setLocationCells(ArrayList<Cell> loc) {
-		// ArrayList<Cell> locationTest = new ArrayList<Cell>;
-		// locationTest = loc;
 		locationCells = loc;
 	}
-
-	// public void setNullLocationCells() {
-	// 	locationCells.clear();
-	// }
 
 	public ArrayList<Cell> getLocationCells() {
 		return locationCells;
@@ -29,10 +23,6 @@ public class Ship {
 	public void setSurroundingCells(ArrayList<Cell> sur) {
 		surroundingCells = sur;
 	}
-
-	// public void setNullSurroundingCells() {
-	// 	surroundingCells.clear();
-	// }
 
 	public ArrayList<Cell> getSurroundCells() {
 		return surroundingCells;
@@ -60,10 +50,5 @@ public class Ship {
 			cellToSet.shooted = true;
 			cellToSet.button.setBackground(Color.blue);
 		}
-		// если корабль потонул, то во всех клетках locationCell и всех клетках surroundinCell нужно
-		// установить что в них попали +
-		// и если он потонул, то isFloatin = false +
-
-		// return true;
 	}
 }

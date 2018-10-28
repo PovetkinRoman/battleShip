@@ -8,9 +8,6 @@ import java.awt.event.*;
 
 
 public class SeaBattle implements MyControlListener {
-	// Тут добавть обработчик события ПРоверитьЧтоИграКОнчилась.isGameOver(
-	// в этом обработчике пробегаемся по списку кораблей, и если все isFloating = false;
-	// Точнее, если хотя бы один isFloating == true, значит игра не кончилась
 
 	final int fieldLength = 10;
 	final int fieldSize = fieldLength * fieldLength;
@@ -23,12 +20,8 @@ public class SeaBattle implements MyControlListener {
 	int[][] battleField = new int[fieldLength][fieldLength];
 	Cell[][] battleField2 = new Cell[fieldLength][fieldLength];
 
-	// ArrayList<String> coordinateShip = new ArrayList<String>();
+
 	ArrayList<Ship> ships = new ArrayList<Ship>();
-
-
-	// ArrayList<Cell> testCellSurroundingShip = new ArrayList<Cell>();
-	// ArrayList<Ship> <<< Nado sdelat +
 
 	public static void main(String[] args) {
 		SeaBattle seaBattle = new SeaBattle();
@@ -39,32 +32,12 @@ public class SeaBattle implements MyControlListener {
 	public void onDataChanged(MyEvent dataAddedCount) {
 		int finishGameSteps = 0;
 		String steps = dataAddedCount.getMessage();
-		// finishGameSteps = Integer.parseInt(steps);
-		// System.out.println("" + steps);
 		for (Ship shipTest : ships) {
 			if (shipTest.isFloating == false) return;
 		}
-
-		// System.out.println("получил событие проверить конец игры");
-		// int incr = 0;
-		// incr++;
-		// finishGame = this.isGameOver();
-		// System.out.println("isGameOver - " + finishGame);
-		// if (finishGame == true) {
-		// System.out.println("Вы потопили все корабли за " + incr + " хода(ов)");
-		
+		//Добавить подсчет ходов и вывод их на экран
 		System.exit(0);
-		// }
 	}
-
-	// public boolean isGameOver() {
-	// 	for (Ship ship : ships) {
-	// 		if (ship.isFloating == false) {
-	// 			return false;
-	// 		}
-	// 	}
-	// 	return true;
-	// }
 
 	public void go() {
 		JFrame frame = new JFrame("Battle Ship by Roman Povetkin");
@@ -170,16 +143,8 @@ public class SeaBattle implements MyControlListener {
 		return randomShip;
 	}
 
-// TODO: Создать корабль и передать в него список клеток где находится корабль и список окружающих клеток +
-// TODO2: Всем клеткам из массива нужно сделать setShip(createdShip) +
-
 	public boolean checkLocationShip(int x, int y, boolean verticalShip,
 	                                 boolean gorizontalShip, int shipSize) {
-		// int fromX, fromY;
-		// int toX = 0;
-		// int toY = 0;
-
-
 		//формируем индексы начала и конца цикла для строк,
 		//для проверки области расположения корабля
 		//если координата "х" равна нулю, то это значит, что
@@ -216,15 +181,14 @@ public class SeaBattle implements MyControlListener {
 				}
 			}
 		}
-		//отмечаем область вокруг корабля "2ой"
+		//отмечаем область вокруг корабля "2-кой"
 		for (int i = fromX; i <= toX; i++) {
 			for (int j = fromY; j <= toY; j++) {
 				battleField[i][j] = 2;
 				// System.out.println("Точка: " + i + "-" + j + "занята");
 			}
 		}
-		//отмечаем расположение корабля "1ой"
-		//проверить что в 254 строке выходит за границы массива
+		//отмечаем расположение корабля "1-кой"
 		int r = x;
 		int c = y;
 		for (int k = 0; k < shipSize; k++) {
