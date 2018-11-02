@@ -1,4 +1,4 @@
-package MyBattleShip;
+package battleShip;
 
 import java.awt.*;
 import javax.swing.*;
@@ -12,6 +12,7 @@ public class SeaBattle implements MyControlListener {
 	final int fieldLength = 10;
 	final int fieldSize = fieldLength * fieldLength;
 
+	int[][] battleField = new int[fieldLength][fieldLength];
 	Cell[][] battleField2 = new Cell[fieldLength][fieldLength];
 
 	ArrayList<Ship> ships = new ArrayList<Ship>();
@@ -38,32 +39,46 @@ public class SeaBattle implements MyControlListener {
 
 				JButton tempButton = new JButton(String.valueOf(i) + "-" + String.valueOf(j));
 				panel.add(tempButton);
-				tempButton.addActionListener(battleField2[i][j]);
 
 				battleField2[i][j] = new Cell();
 				battleField2[i][j].addMyEventListener(this);
 				battleField2[i][j].button = tempButton;
+				tempButton.addActionListener(battleField2[i][j]);
 			}
 		}
-		ShipRandomizer sr = new ShipRandomizer();
-		// int sizeShip = 4;
-		// // TO DO: написать метод который оптимизирует данный цикл
-		// for (int i = sizeShip; i > 0; i--) {
-		// 	if (i == 4) ships.add(randomPlaceShip(i));
-		// 	else if (i == 3) {
-		// 		ships.add(randomPlaceShip(i));
-		// 		ships.add(randomPlaceShip(i));
-		// 	} else if (i == 2) {
-		// 		ships.add(randomPlaceShip(i));
-		// 		ships.add(randomPlaceShip(i));
-		// 		ships.add(randomPlaceShip(i));
-		// 	} else if (i == 1) {
-		// 		ships.add(randomPlaceShip(i));
-		// 		ships.add(randomPlaceShip(i));
-		// 		ships.add(randomPlaceShip(i));
-		// 		ships.add(randomPlaceShip(i));
+		int sizeShip = 4;
+		ShipRandomizer sr = new ShipRandomizer(sizeShip, battleField, battleField2);
+		// Ship testShip = new Ship();
+		// testShip.setName("originalName");
+		// testShip = sr.randomPlaceShip();
+		// ships.add(testShip);
+		// ships.add(sr.randomPlaceShip());
+		// System.out.println("testShipName : " + testShip.getName());
+		// for(int i = 0; i < battleField2.length; i++){
+		// 	for(int j = 0; j < battleField2.length; j++){
+		// 		if(battleField2[i][j].hasShip == true){
+		// 			System.out.println("hasShip == true");
+		// 		} 	
 		// 	}
 		// }
+		
+		// // TO DO: написать метод который оптимизирует данный цикл
+		for (int i = sizeShip; i > 0; i--) {
+			if (i == 4) ships.add(sr.randomPlaceShip());
+			else if (i == 3) {
+				ships.add(sr.randomPlaceShip());
+				ships.add(sr.randomPlaceShip());
+			} else if (i == 2) {
+				ships.add(sr.randomPlaceShip());
+				ships.add(sr.randomPlaceShip());
+				ships.add(sr.randomPlaceShip());
+			} else if (i == 1) {
+				ships.add(sr.randomPlaceShip());
+				ships.add(sr.randomPlaceShip());
+				ships.add(sr.randomPlaceShip());
+				ships.add(sr.randomPlaceShip());
+			}
+		}
 		frame.getContentPane().add(BorderLayout.CENTER, panel);
 		frame.setBounds(570, 300, fieldLength * 75, fieldLength * 65);
 		frame.setVisible(true);
@@ -71,7 +86,7 @@ public class SeaBattle implements MyControlListener {
 
 	public void onDataChanged(MyEvent dataAddedCount) {
 		int finishGameSteps = 0;
-		String steps = dataAddedCount.getMessage();
+		// String steps = dataAddedCount.getMessage();
 		for (Ship shipTest : ships) {
 			if (shipTest.isFloating == false) return;
 		}

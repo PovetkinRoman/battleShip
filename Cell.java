@@ -1,9 +1,9 @@
-package MyBattleShip;
+package battleShip;
 
 import javax.swing.*;
-import java.util.*;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.*;
 
 public class Cell implements ActionListener {
 
@@ -12,7 +12,7 @@ public class Cell implements ActionListener {
 	JButton button = null;
 	Boolean hasShip = false;
 	Boolean shipField = false; 
-	Ship owner = null; 
+	private Ship owner = null; 
 	private String name = "nope";
 	String steps;
 	int incr = 0;
@@ -21,11 +21,15 @@ public class Cell implements ActionListener {
 	private ArrayList<MyControlListener> listeners = new ArrayList<MyControlListener>();
 	//привязываем каждой клетке определенный корабль
 	public void setShip(Ship ship) {
-		owner = ship;
+		this.owner = ship;
+	}
+
+	public Ship getShip() {
+		return owner;
 	}
 
 	public void setName(String n) {
-		name = n;
+		this.name = n;
 	}
 
 	public String getName() {
@@ -38,7 +42,7 @@ public class Cell implements ActionListener {
 
 		
 		if (shooted == true) {
-			System.out.println("ЭЭЭ в эту кнопку уже стреляли");
+			System.out.println("В эту кнопку уже стреляли");
 			return;
 			
 		} else {
