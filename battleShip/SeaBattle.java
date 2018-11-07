@@ -46,31 +46,39 @@ public class SeaBattle implements MyControlListener {
 				tempButton.addActionListener(battleField2[i][j]);
 			}
 		}
-		
+
 		int sizeShip = 4;
+		int temp = sizeShip;
 		ShipRandomizer sr = new ShipRandomizer(fieldLength);
 		
-		// // TO DO: написать метод который оптимизирует данный цикл
-		for (int i = sizeShip; i > 0; i--) {
-			if (i == 4) {
-				ships.add(sr.randomPlaceShip(i, battleField, battleField2));
-				sizeShip--;
-			} else if (i == 3) {
-				ships.add(sr.randomPlaceShip(i, battleField, battleField2));
-				ships.add(sr.randomPlaceShip(i, battleField, battleField2));
-				sizeShip--;
-			} else if (i == 2) {
-				ships.add(sr.randomPlaceShip(i, battleField, battleField2));
-				ships.add(sr.randomPlaceShip(i, battleField, battleField2));
-				ships.add(sr.randomPlaceShip(i, battleField, battleField2));
-				sizeShip--;
-			} else if (i == 1) {
-				ships.add(sr.randomPlaceShip(i, battleField, battleField2));
-				ships.add(sr.randomPlaceShip(i, battleField, battleField2));
-				ships.add(sr.randomPlaceShip(i, battleField, battleField2));
+		for (int i = 1; i <= sizeShip; i++) {
+			for (int j = temp; j > 0; j--) {
 				ships.add(sr.randomPlaceShip(i, battleField, battleField2));
 			}
+			temp--;
 		}
+ 	
+		// // TO DO: написать метод который оптимизирует данный цикл
+		// for (int i = sizeShip; i > 0; i--) {
+		// 	if (i == 4) {
+		// 		ships.add(sr.randomPlaceShip(i, battleField, battleField2));
+		// 		sizeShip--;
+		// 	} else if (i == 3) {
+		// 		ships.add(sr.randomPlaceShip(i, battleField, battleField2));
+		// 		ships.add(sr.randomPlaceShip(i, battleField, battleField2));
+		// 		sizeShip--;
+		// 	} else if (i == 2) {
+		// 		ships.add(sr.randomPlaceShip(i, battleField, battleField2));
+		// 		ships.add(sr.randomPlaceShip(i, battleField, battleField2));
+		// 		ships.add(sr.randomPlaceShip(i, battleField, battleField2));
+		// 		sizeShip--;
+		// 	} else if (i == 1) {
+		// 		ships.add(sr.randomPlaceShip(i, battleField, battleField2));
+		// 		ships.add(sr.randomPlaceShip(i, battleField, battleField2));
+		// 		ships.add(sr.randomPlaceShip(i, battleField, battleField2));
+		// 		ships.add(sr.randomPlaceShip(i, battleField, battleField2));
+		// 	}
+		// }
 		frame.getContentPane().add(BorderLayout.CENTER, panel);
 		frame.setBounds(570, 300, fieldLength * 75, fieldLength * 65);
 		frame.setVisible(true);
