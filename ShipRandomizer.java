@@ -4,7 +4,7 @@ import java.util.*;
 
 public class ShipRandomizer {
 
-	final int fieldLength = 10;
+	private int fieldLength;
 	final int fieldSize = fieldLength * fieldLength;
 	private int fromX = 0;
 	private int fromY = 0;
@@ -12,24 +12,18 @@ public class ShipRandomizer {
 	private int toY = 0;
 	private int sizeShip = 0;
 
-	private int[][] fieldNumbers = new int[fieldLength][fieldLength];
-	private Cell[][] cellField = new Cell[fieldLength][fieldLength];
-
-
-	public ShipRandomizer(int shipSize, int[][] battleField, Cell[][] battleField2) {
-		this.sizeShip = shipSize;
-		this.fieldNumbers = battleField;
-		this.cellField = battleField2;
+	public ShipRandomizer(int fieldLength) {
+		this.fieldLength = fieldLength;
 	}
 
-	public Ship randomPlaceShip() {
+	public Ship randomPlaceShip(int sizeShip, int[][] fieldNumbers, Cell[][] cellField) {
 
 		int incr = 1;
 		int row = 0;
 		int column = 0;
 		boolean result = false;
-		boolean verticalShip = false;
-		boolean gorizontalShip = false;
+		boolean verticalShip;
+		boolean gorizontalShip;
 
 		ArrayList<Cell> locationShip = new ArrayList<Cell>();
 		ArrayList<Cell> surroundCellShip = new ArrayList<Cell>();
@@ -38,6 +32,8 @@ public class ShipRandomizer {
 			//Рандомиим направление корабля, 0 - горизонтальный, 1 - вертикальный
 			//Рандомим начальные координаты корабля в зависимости от его направления
 			int vertOrGorizont = (int) (Math.random() * 2);
+			verticalShip = false;
+			gorizontalShip = false;
 
 			if (vertOrGorizont == 1) {
 				// incr = fieldLength;
@@ -52,7 +48,7 @@ public class ShipRandomizer {
 				// System.out.println("Рандомим горизонтальный корабль: " + shipSize + " палубы " + row + " - " + column);
 			}
 			result = this.checkLocationShip(row, column, verticalShip,
-			                                gorizontalShip, sizeShip);
+			                                gorizontalShip, sizeShip, fieldNumbers);
 		}
 		// System.out.println("Нарандомили точку: " + row + " - " + column);
 		// System.out.println("");
@@ -79,7 +75,7 @@ public class ShipRandomizer {
 	}
 
 	public boolean checkLocationShip(int x, int y, boolean verticalShip,
-	                                 boolean gorizontalShip, int sizeShip) {
+	                                 boolean gorizontalShip, int sizeShip, int[][] fieldNumbers) {
 		//формируем индексы начала и конца цикла для строк,
 		//для проверки области расположения корабля
 		//если координата "х" равна нулю, то это значит, что
@@ -120,11 +116,12 @@ public class ShipRandomizer {
 		for (int i = fromX; i <= toX; i++) {
 			for (int j = fromY; j <= toY; j++) {
 				fieldNumbers[i][j] = 2;
-				// System.out.println("Точка: " + i + "-" + j + "занята");
+				// System.out.println("Точка: " + i + "-" + j + "поле");
 			}
 		}
 		//отмечаем расположение корабля "1-кой"
 		for (int k = 0; k < sizeShip; k++) {
+			// System.out.println("x = " + x + " " + "y = " + y);
 			fieldNumbers[x][y] = 1;
 			if (verticalShip == true) {
 				x++;
@@ -132,6 +129,7 @@ public class ShipRandomizer {
 				y++;
 			}
 		}
+		// System.out.println("");
 		return true;
 	}
 }
