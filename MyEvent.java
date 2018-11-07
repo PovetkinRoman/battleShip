@@ -1,4 +1,4 @@
-package MyBattleShip;
+package battleShip;
 
 import java.util.EventObject;
 
